@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<!-- saved from url=(0095)https://grafanalib.readthedocs.io/en/stable/getting-started.html#uploading-dashboards-from-code -->
+<html class="writer-html5" lang="en" data-content_root="./"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getting Started with grafanalib — grafanalib  documentation</title>
+      <link rel="stylesheet" type="text/css" href="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/pygments.css">
+      <link rel="stylesheet" type="text/css" href="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/theme.css">
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script type="text/javascript" async="" src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/analytics.js.download"></script><script src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/jquery.js.download"></script>
+        <script src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/_sphinx_javascript_frameworks_compat.js.download"></script>
+        <script src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/documentation_options.js.download"></script>
+        <script src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/doctools.js.download"></script>
+        <script src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/sphinx_highlight.js.download"></script>
+        <script async="async" src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/readthedocs-doc-embed.js.download"></script>
+    <script src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/theme.js.download"></script>
+    <link rel="index" title="Index" href="https://grafanalib.readthedocs.io/en/stable/genindex.html">
+    <link rel="search" title="Search" href="https://grafanalib.readthedocs.io/en/stable/search.html">
+    <link rel="next" title="grafanalib package" href="https://grafanalib.readthedocs.io/en/stable/api/grafanalib.html">
+    <link rel="prev" title="Welcome to grafanalib’s documentation!" href="https://grafanalib.readthedocs.io/en/stable/index.html"> 
+
+<!-- RTD Extra Head -->
+
+<link rel="stylesheet" href="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/readthedocs-doc-embed.css" type="text/css">
+
+<script type="application/json" id="READTHEDOCS_DATA">{"ad_free": false, "api_host": "https://readthedocs.org", "builder": "sphinx", "canonical_url": null, "docroot": "/docs/", "features": {"docsearch_disabled": false}, "global_analytics_code": "UA-17997319-1", "language": "en", "page": "getting-started", "programming_language": "py", "project": "grafanalib", "proxied_api_host": "/_", "source_suffix": ".rst", "subprojects": {}, "theme": "sphinx_rtd_theme", "user_analytics_code": "", "version": "stable"}</script>
+
+<!--
+Using this variable directly instead of using `JSON.parse` is deprecated.
+The READTHEDOCS_DATA global variable will be removed in the future.
+-->
+<script type="text/javascript">
+READTHEDOCS_DATA = JSON.parse(document.getElementById('READTHEDOCS_DATA').innerHTML);
+</script>
+
+<script type="text/javascript" src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/readthedocs-analytics.js.download" async="async"></script>
+
+<!-- end RTD <extrahead> -->
+<style>@font-face {
+              font-family: 'Open Sans Regular';
+              font-style: normal;
+              font-weight: 400;
+              src: url('chrome-extension://gkkdmjjodidppndkbkhhknakbeflbomf/fonts/open_sans/open-sans-v18-latin-regular.woff');
+          }</style><style>@font-face {
+              font-family: 'Open Sans Bold';
+              font-style: normal;
+              font-weight: 800;
+              src: url('chrome-extension://gkkdmjjodidppndkbkhhknakbeflbomf/fonts/open_sans/OpenSans-Bold.woff');
+          }</style><style>@font-face {
+              font-family: 'Open Sans ExtraBold';
+              font-style: normal;
+              font-weight: 800;
+              src: url('chrome-extension://gkkdmjjodidppndkbkhhknakbeflbomf/fonts/open_sans/open-sans-v18-latin-800.woff');
+          }</style><script src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/js" type="text/javascript" async=""></script><script src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/ethicalads.min.js.download" type="text/javascript" async="" id="ethicaladsjs"></script><style>[data-ea-publisher].loaded,[data-ea-type].loaded{font-size:14px;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-weight:normal;font-style:normal;leter-spacing:0px;vertical-align:baseline;line-height:1.3em}[data-ea-publisher].loaded a,[data-ea-type].loaded a{text-decoration:none}[data-ea-publisher].loaded .ea-pixel,[data-ea-type].loaded .ea-pixel{display:none}[data-ea-publisher].loaded .ea-content,[data-ea-type].loaded .ea-content{margin:1em 1em .5em 1em;padding:1em;background:rgba(0,0,0,.03);color:#505050}[data-ea-publisher].loaded .ea-content a:link,[data-ea-type].loaded .ea-content a:link{color:#505050}[data-ea-publisher].loaded .ea-content a:visited,[data-ea-type].loaded .ea-content a:visited{color:#505050}[data-ea-publisher].loaded .ea-content a:hover,[data-ea-type].loaded .ea-content a:hover{color:#373737}[data-ea-publisher].loaded .ea-content a:active,[data-ea-type].loaded .ea-content a:active{color:#373737}[data-ea-publisher].loaded .ea-content a strong,[data-ea-publisher].loaded .ea-content a b,[data-ea-type].loaded .ea-content a strong,[data-ea-type].loaded .ea-content a b{color:#088cdb}[data-ea-publisher].loaded .ea-callout a:link,[data-ea-type].loaded .ea-callout a:link{color:#6a6a6a}[data-ea-publisher].loaded .ea-callout a:visited,[data-ea-type].loaded .ea-callout a:visited{color:#6a6a6a}[data-ea-publisher].loaded .ea-callout a:hover,[data-ea-type].loaded .ea-callout a:hover{color:#505050}[data-ea-publisher].loaded .ea-callout a:active,[data-ea-type].loaded .ea-callout a:active{color:#505050}[data-ea-publisher].loaded .ea-callout a strong,[data-ea-publisher].loaded .ea-callout a b,[data-ea-type].loaded .ea-callout a strong,[data-ea-type].loaded .ea-callout a b{color:#088cdb}[data-ea-publisher].loaded .ea-callout a,[data-ea-type].loaded .ea-callout a{font-size:.8em}[data-ea-publisher].loaded.dark .ea-content,[data-ea-type].loaded.dark .ea-content{background:rgba(255,255,255,.05);color:#dcdcdc}[data-ea-publisher].loaded.dark .ea-content a:link,[data-ea-type].loaded.dark .ea-content a:link{color:#dcdcdc}[data-ea-publisher].loaded.dark .ea-content a:visited,[data-ea-type].loaded.dark .ea-content a:visited{color:#dcdcdc}[data-ea-publisher].loaded.dark .ea-content a:hover,[data-ea-type].loaded.dark .ea-content a:hover{color:#f6f6f6}[data-ea-publisher].loaded.dark .ea-content a:active,[data-ea-type].loaded.dark .ea-content a:active{color:#f6f6f6}[data-ea-publisher].loaded.dark .ea-content a strong,[data-ea-publisher].loaded.dark .ea-content a b,[data-ea-type].loaded.dark .ea-content a strong,[data-ea-type].loaded.dark .ea-content a b{color:#50baf9}[data-ea-publisher].loaded.dark .ea-callout a:link,[data-ea-type].loaded.dark .ea-callout a:link{color:#c3c3c3}[data-ea-publisher].loaded.dark .ea-callout a:visited,[data-ea-type].loaded.dark .ea-callout a:visited{color:#c3c3c3}[data-ea-publisher].loaded.dark .ea-callout a:hover,[data-ea-type].loaded.dark .ea-callout a:hover{color:#dcdcdc}[data-ea-publisher].loaded.dark .ea-callout a:active,[data-ea-type].loaded.dark .ea-callout a:active{color:#dcdcdc}[data-ea-publisher].loaded.dark .ea-callout a strong,[data-ea-publisher].loaded.dark .ea-callout a b,[data-ea-type].loaded.dark .ea-callout a strong,[data-ea-type].loaded.dark .ea-callout a b{color:#50baf9}@media(prefers-color-scheme: dark){[data-ea-publisher].loaded.adaptive .ea-content,[data-ea-type].loaded.adaptive .ea-content{background:rgba(255,255,255,.05);color:#dcdcdc}[data-ea-publisher].loaded.adaptive .ea-content a:link,[data-ea-type].loaded.adaptive .ea-content a:link{color:#dcdcdc}[data-ea-publisher].loaded.adaptive .ea-content a:visited,[data-ea-type].loaded.adaptive .ea-content a:visited{color:#dcdcdc}[data-ea-publisher].loaded.adaptive .ea-content a:hover,[data-ea-type].loaded.adaptive .ea-content a:hover{color:#f6f6f6}[data-ea-publisher].loaded.adaptive .ea-content a:active,[data-ea-type].loaded.adaptive .ea-content a:active{color:#f6f6f6}[data-ea-publisher].loaded.adaptive .ea-content a strong,[data-ea-publisher].loaded.adaptive .ea-content a b,[data-ea-type].loaded.adaptive .ea-content a strong,[data-ea-type].loaded.adaptive .ea-content a b{color:#50baf9}[data-ea-publisher].loaded.adaptive .ea-callout a:link,[data-ea-type].loaded.adaptive .ea-callout a:link{color:#c3c3c3}[data-ea-publisher].loaded.adaptive .ea-callout a:visited,[data-ea-type].loaded.adaptive .ea-callout a:visited{color:#c3c3c3}[data-ea-publisher].loaded.adaptive .ea-callout a:hover,[data-ea-type].loaded.adaptive .ea-callout a:hover{color:#dcdcdc}[data-ea-publisher].loaded.adaptive .ea-callout a:active,[data-ea-type].loaded.adaptive .ea-callout a:active{color:#dcdcdc}[data-ea-publisher].loaded.adaptive .ea-callout a strong,[data-ea-publisher].loaded.adaptive .ea-callout a b,[data-ea-type].loaded.adaptive .ea-callout a strong,[data-ea-type].loaded.adaptive .ea-callout a b{color:#50baf9}}[data-ea-publisher].loaded .ea-content,[data-ea-type].loaded .ea-content{border:0px;border-radius:3px;box-shadow:0px 2px 3px rgba(0,0,0,.15)}[data-ea-publisher].loaded.raised .ea-content,[data-ea-type].loaded.raised .ea-content{border:0px;border-radius:3px;box-shadow:0px 2px 3px rgba(0,0,0,.15)}[data-ea-publisher].loaded.bordered .ea-content,[data-ea-type].loaded.bordered .ea-content{border:1px solid rgba(0,0,0,.04);border-radius:3px;box-shadow:none}[data-ea-publisher].loaded.bordered.dark .ea-content,[data-ea-type].loaded.bordered.dark .ea-content{border:1px solid rgba(255,255,255,.07)}@media(prefers-color-scheme: dark){[data-ea-publisher].loaded.bordered.adaptive .ea-content,[data-ea-type].loaded.bordered.adaptive .ea-content{border:1px solid rgba(255,255,255,.07)}}[data-ea-publisher].loaded.flat .ea-content,[data-ea-type].loaded.flat .ea-content{border:0px;border-radius:3px;box-shadow:none}[data-ea-type=image].loaded,[data-ea-publisher]:not([data-ea-type]).loaded,.ea-type-image{display:inline-block}[data-ea-type=image].loaded .ea-content,[data-ea-publisher]:not([data-ea-type]).loaded .ea-content,.ea-type-image .ea-content{max-width:180px;overflow:auto;text-align:center}[data-ea-type=image].loaded .ea-content>a>img,[data-ea-publisher]:not([data-ea-type]).loaded .ea-content>a>img,.ea-type-image .ea-content>a>img{width:120px;height:90px;display:inline-block}[data-ea-type=image].loaded .ea-content>.ea-text,[data-ea-publisher]:not([data-ea-type]).loaded .ea-content>.ea-text,.ea-type-image .ea-content>.ea-text{margin-top:1em;font-size:1em;text-align:center}[data-ea-type=image].loaded .ea-callout,[data-ea-publisher]:not([data-ea-type]).loaded .ea-callout,.ea-type-image .ea-callout{max-width:180px;margin:0em 1em 1em 1em;padding-left:1em;padding-right:1em;font-style:italic;text-align:right}[data-ea-type=image].loaded.horizontal .ea-content,[data-ea-publisher]:not([data-ea-type]).loaded.horizontal .ea-content,.ea-type-image.horizontal .ea-content{max-width:320px}[data-ea-type=image].loaded.horizontal .ea-content>a>img,[data-ea-publisher]:not([data-ea-type]).loaded.horizontal .ea-content>a>img,.ea-type-image.horizontal .ea-content>a>img{float:left;margin-right:1em}[data-ea-type=image].loaded.horizontal .ea-content .ea-text,[data-ea-publisher]:not([data-ea-type]).loaded.horizontal .ea-content .ea-text,.ea-type-image.horizontal .ea-content .ea-text{margin-top:0em;text-align:left;overflow:auto}[data-ea-type=image].loaded.horizontal .ea-callout,[data-ea-publisher]:not([data-ea-type]).loaded.horizontal .ea-callout,.ea-type-image.horizontal .ea-callout{max-width:320px;text-align:right}[data-ea-type=text].loaded,.ea-type-text{font-size:14px}[data-ea-type=text].loaded .ea-content,.ea-type-text .ea-content{text-align:left}[data-ea-type=text].loaded .ea-callout,.ea-type-text .ea-callout{margin:.5em 1em 1em 1em;padding-left:1em;padding-right:1em;text-align:right;font-style:italic}[data-ea-style=stickybox].loaded{position:fixed;bottom:20px;right:20px;z-index:10}[data-ea-style=stickybox].loaded .ea-type-image .ea-stickybox-hide{cursor:pointer;position:absolute;top:.75em;right:.75em;background-color:#fefefe;border:1px solid #088cdb;border-radius:50%;color:#088cdb;font-size:1em;text-align:center;height:1.5em;width:1.5em;line-height:1.5em}@media(max-width: 1300px){[data-ea-style=stickybox].loaded{position:static;bottom:0;right:0;margin:auto;text-align:center}[data-ea-style=stickybox].loaded .ea-stickybox-hide{display:none}}@media(min-width: 1301px){[data-ea-style=stickybox].loaded .ea-type-image .ea-content{background:#dcdcdc}[data-ea-style=stickybox].loaded.dark .ea-type-image .ea-content{background:#505050}}@media(min-width: 1301px)and (prefers-color-scheme: dark){[data-ea-style=stickybox].loaded.adaptive .ea-type-image .ea-content{background:#505050}}[data-ea-style=fixedfooter].loaded{position:fixed;bottom:0;left:0;z-index:200;width:100%;max-width:100%}[data-ea-style=fixedfooter].loaded .ea-type-text{width:100%;max-width:100%;display:flex;z-index:200;background:#dcdcdc}[data-ea-style=fixedfooter].loaded .ea-type-text .ea-content{border:0px;border-radius:3px;box-shadow:none}[data-ea-style=fixedfooter].loaded .ea-type-text .ea-content{background-color:inherit;max-width:100%;margin:0;padding:1em;flex:auto}[data-ea-style=fixedfooter].loaded .ea-type-text .ea-callout{max-width:100%;margin:0;padding:1em;flex:initial}@media(max-width: 576px){[data-ea-style=fixedfooter].loaded .ea-type-text .ea-callout{display:none}}[data-ea-style=fixedfooter].loaded .ea-type-text .ea-fixedfooter-hide{cursor:pointer;color:#505050;padding:1em;flex:initial;margin:auto 0}[data-ea-style=fixedfooter].loaded .ea-type-text .ea-fixedfooter-hide span{padding:.25em;font-size:.8em;font-weight:bold;border:.15em solid #505050;border-radius:.5em;white-space:nowrap}[data-ea-style=fixedfooter].loaded.dark .ea-type-text{background:#505050}[data-ea-style=fixedfooter].loaded.dark .ea-type-text .ea-fixedfooter-hide span{color:#dcdcdc;border-color:#dcdcdc}@media(prefers-color-scheme: dark){[data-ea-style=fixedfooter].loaded.adaptive .ea-type-text{background:#505050}[data-ea-style=fixedfooter].loaded.adaptive .ea-type-text .ea-fixedfooter-hide span{color:#dcdcdc;border-color:#dcdcdc}}</style><script src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/saved_resource" type="text/javascript" async=""></script></head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+
+          
+          
+          <a href="https://grafanalib.readthedocs.io/en/stable/index.html" class="icon icon-home">
+            grafanalib
+          </a>
+              <div class="version">
+                stable
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://grafanalib.readthedocs.io/en/stable/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current" aria-expanded="true">
+<li class="toctree-l1 current" aria-expanded="true"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#" aria-expanded="false"><button class="toctree-expand" title="Open/close menu"></button>Getting Started with grafanalib</a><ul>
+<li class="toctree-l2" aria-expanded="false"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#writing-dashboards" aria-expanded="false">Writing dashboards</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#generating-dashboards">Generating dashboards</a></li>
+<li class="toctree-l2 current" aria-expanded="true"><a class="reference internal current" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#uploading-dashboards-from-code" aria-expanded="true">Uploading dashboards from code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#writing-alerts"><button class="toctree-expand" title="Open/close menu"></button>Writing Alerts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#alerts-in-grafana-v8">Alerts in Grafana v8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#alerts-in-grafana-v9">Alerts in Grafana v9</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#generating-alerts">Generating Alerts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#uploading-alerts-from-code"><button class="toctree-expand" title="Open/close menu"></button>Uploading alerts from code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#uploading-alerts-from-code-using-rest-api">Uploading alerts from code using REST API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#uploading-alerts-from-code-using-file-based-provisioning">Uploading alerts from code using File Based Provisioning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#support">Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#developing">Developing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#configuring-grafana-datasources">Configuring Grafana Datasources</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/api/grafanalib.html">grafanalib package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/api/modules.html">grafanalib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/CONTRIBUTING.html">Contributing to grafanalib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/CODE_OF_CONDUCT.html">Community Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/releasing.html">Release process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://grafanalib.readthedocs.io/en/stable/CHANGELOG.html">Changelog</a></li>
+</ul>
+
+        </div>
+      <div id="rtd-sidebar" data-ea-publisher="readthedocs" data-ea-type="readthedocs-sidebar" data-ea-manual="true" class="ethical-rtd ethical-dark-theme loaded" data-ea-keywords="dashboards|gitops|grafana|python|readthedocs-project-567642|readthedocs-project-grafanalib" data-ea-campaign-types="community|house|paid"><div class="ethical-sidebar"><div class="ethical-content"><a href="https://server.ethicalads.io/proxy/click/6609/7ee805de-9ffc-4540-b982-64dce96c14c9/" rel="nofollow noopener sponsored" target="_blank" class="ethical-image-link"><img src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/1.jpg" alt="Sponsored: GotoAdmins"></a><div class="ethical-text"><a href="https://server.ethicalads.io/proxy/click/6609/7ee805de-9ffc-4540-b982-64dce96c14c9/" rel="nofollow noopener sponsored" target="_blank"><strong class="ea-headline">Need DevOps Help? </strong><span class="ea-body">Setup and run your IT infrastructure with confidence</span><strong class="ea-cta"> Get started today!</strong></a></div></div><div class="ethical-callout"><small><em><a rel="nofollow noopener" target="_blank" href="https://www.ethicalads.io/?ref=rtd-sidebar">Ad by EthicalAds</a></em></small><span> &nbsp; · &nbsp; </span><a rel="nofollow noopener" target="_blank" href="https://www.ethicalads.io/advertisers/topics/backend-web/?ref=rtd-sidebar-buy-ads">ℹ️</a></div></div><img src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/saved_resource(1)" class="ea-pixel"><img src="./Getting Started with grafanalib-writing dashboard — grafanalib documentation_files/saved_resource(2)" class="ea-pixel"></div></div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="https://grafanalib.readthedocs.io/en/stable/index.html">grafanalib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="https://grafanalib.readthedocs.io/en/stable/index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Getting Started with grafanalib</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/weaveworks/grafanalib/blob/b312693fc2d5548e57c23a8bd9503ed8d15603fc/docs/getting-started.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="getting-started-with-grafanalib">
+<h1>Getting Started with grafanalib<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#getting-started-with-grafanalib" title="Link to this heading"></a></h1>
+<p>Do you like <a class="reference external" href="http://grafana.org/">Grafana</a> but wish you could version your
+dashboard configuration? Do you find yourself repeating common patterns? If
+so, grafanalib is for you.</p>
+<p>grafanalib lets you generate Grafana dashboards from simple Python scripts.</p>
+<p>Grafana migrates dashboards to the latest Grafana schema version on import,
+meaning that dashboards created with grafanalib are supported by
+all versions of Grafana. You may find that some of the latest features are
+missing from grafanalib, please refer to the <a class="reference external" href="https://grafanalib.readthedocs.io/en/main/api/modules.html">module documentation</a> for information
+about supported features. If you find a missing feature please raise an issue
+or submit a PR to the GitHub <a class="reference external" href="https://github.com/weaveworks/grafanalib">repository</a></p>
+<section id="writing-dashboards">
+<h2>Writing dashboards<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#writing-dashboards" title="Link to this heading"></a></h2>
+<p>The following will configure a dashboard with a couple of example panels that
+use the random walk and Prometheus datasources.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="kn">from</span> <span class="nn">grafanalib.core</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Dashboard</span><span class="p">,</span> <span class="n">TimeSeries</span><span class="p">,</span> <span class="n">GaugePanel</span><span class="p">,</span>
+    <span class="n">Target</span><span class="p">,</span> <span class="n">GridPos</span><span class="p">,</span>
+    <span class="n">OPS_FORMAT</span>
+<span class="p">)</span>
+
+<span class="n">dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Python generated example dashboard"</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"Example dashboard using the Random Walk and default Prometheus datasource"</span><span class="p">,</span>
+    <span class="n">tags</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'example'</span>
+    <span class="p">],</span>
+    <span class="n">timezone</span><span class="o">=</span><span class="s2">"browser"</span><span class="p">,</span>
+    <span class="n">panels</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">TimeSeries</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"Random Walk"</span><span class="p">,</span>
+            <span class="n">dataSource</span><span class="o">=</span><span class="s1">'default'</span><span class="p">,</span>
+            <span class="n">targets</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">Target</span><span class="p">(</span>
+                    <span class="n">datasource</span><span class="o">=</span><span class="s1">'grafana'</span><span class="p">,</span>
+                    <span class="n">expr</span><span class="o">=</span><span class="s1">'example'</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="n">gridPos</span><span class="o">=</span><span class="n">GridPos</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">GaugePanel</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"Random Walk"</span><span class="p">,</span>
+            <span class="n">dataSource</span><span class="o">=</span><span class="s1">'default'</span><span class="p">,</span>
+            <span class="n">targets</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">Target</span><span class="p">(</span>
+                    <span class="n">datasource</span><span class="o">=</span><span class="s1">'grafana'</span><span class="p">,</span>
+                    <span class="n">expr</span><span class="o">=</span><span class="s1">'example'</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="n">gridPos</span><span class="o">=</span><span class="n">GridPos</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="n">TimeSeries</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"Prometheus http requests"</span><span class="p">,</span>
+            <span class="n">dataSource</span><span class="o">=</span><span class="s1">'prometheus'</span><span class="p">,</span>
+            <span class="n">targets</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">Target</span><span class="p">(</span>
+                    <span class="n">expr</span><span class="o">=</span><span class="s1">'rate(prometheus_http_requests_total[5m])'</span><span class="p">,</span>
+                    <span class="n">legendFormat</span><span class="o">=</span><span class="s2">"{{ handler }}"</span><span class="p">,</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s1">'A'</span><span class="p">,</span>
+                <span class="p">),</span>
+            <span class="p">],</span>
+            <span class="n">unit</span><span class="o">=</span><span class="n">OPS_FORMAT</span><span class="p">,</span>
+            <span class="n">gridPos</span><span class="o">=</span><span class="n">GridPos</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">],</span>
+<span class="p">)</span><span class="o">.</span><span class="n">auto_panel_ids</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>There is a fair bit of repetition here, but once you figure out what works for
+your needs, you can factor that out.
+See <a class="reference external" href="https://github.com/weaveworks/grafanalib/blob/main/grafanalib/weave.py">our Weave-specific customizations</a>
+for inspiration.</p>
+</section>
+<section id="generating-dashboards">
+<h2>Generating dashboards<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#generating-dashboards" title="Link to this heading"></a></h2>
+<p>If you save the above as <code class="docutils literal notranslate"><span class="pre">example.dashboard.py</span></code> (the suffix must be
+<code class="docutils literal notranslate"><span class="pre">.dashboard.py</span></code>), you can then generate the JSON dashboard with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>generate-dashboard<span class="w"> </span>-o<span class="w"> </span>frontend.json<span class="w"> </span>example.dashboard.py
+</pre></div>
+</div>
+</section>
+<section id="uploading-dashboards-from-code">
+<h2>Uploading dashboards from code<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#uploading-dashboards-from-code" title="Link to this heading"></a></h2>
+<p>Sometimes you may need to generate and upload dashboard directly from Python
+code. The following example provides minimal code boilerplate for it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grafanalib.core</span> <span class="kn">import</span> <span class="n">Dashboard</span>
+<span class="kn">from</span> <span class="nn">grafanalib._gen</span> <span class="kn">import</span> <span class="n">DashboardEncoder</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getenv</span>
+
+
+<span class="k">def</span> <span class="nf">get_dashboard_json</span><span class="p">(</span><span class="n">dashboard</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">"Updated by grafanlib"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''</span>
+<span class="sd">    get_dashboard_json generates JSON from grafanalib Dashboard object</span>
+
+<span class="sd">    :param dashboard - Dashboard() created via grafanalib</span>
+<span class="sd">    '''</span>
+
+    <span class="c1"># grafanalib generates json which need to pack to "dashboard" root element</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">"dashboard"</span><span class="p">:</span> <span class="n">dashboard</span><span class="o">.</span><span class="n">to_json_data</span><span class="p">(),</span>
+            <span class="s2">"overwrite"</span><span class="p">:</span> <span class="n">overwrite</span><span class="p">,</span>
+            <span class="s2">"message"</span><span class="p">:</span> <span class="n">message</span>
+        <span class="p">},</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">DashboardEncoder</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">upload_to_grafana</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">api_key</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''</span>
+<span class="sd">    upload_to_grafana tries to upload dashboard to grafana and prints response</span>
+
+<span class="sd">    :param json - dashboard json generated by grafanalib</span>
+<span class="sd">    :param server - grafana server name</span>
+<span class="sd">    :param api_key - grafana api key with read and write privileges</span>
+<span class="sd">    '''</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'Authorization'</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Bearer </span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s1">'Content-Type'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">}</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">"https://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s2">/api/dashboards/db"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="n">verify</span><span class="p">)</span>
+    <span class="c1"># TODO: add error handling</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+
+<span class="n">grafana_api_key</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s2">"GRAFANA_API_KEY"</span><span class="p">)</span>
+<span class="n">grafana_server</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s2">"GRAFANA_SERVER"</span><span class="p">)</span>
+
+<span class="n">my_dashboard</span> <span class="o">=</span> <span class="n">Dashboard</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"My awesome dashboard"</span><span class="p">,</span> <span class="n">uid</span><span class="o">=</span><span class="s1">'abifsd'</span><span class="p">)</span>
+<span class="n">my_dashboard_json</span> <span class="o">=</span> <span class="n">get_dashboard_json</span><span class="p">(</span><span class="n">my_dashboard</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">upload_to_grafana</span><span class="p">(</span><span class="n">my_dashboard_json</span><span class="p">,</span> <span class="n">grafana_server</span><span class="p">,</span> <span class="n">grafana_api_key</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Alternatively Grafana supports file based provisioning, where dashboard files
+are periodically loaded into the Grafana database. Tools like Anisble can
+assist with the deployment.</p>
+</section>
+<section id="writing-alerts">
+<h2>Writing Alerts<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#writing-alerts" title="Link to this heading"></a></h2>
+<p>Between Grafana versions there have been significant changes in how alerts
+are managed. Bellow are some example of how to configure alerting in
+Grafana v8 and Grafana v9.</p>
+<section id="alerts-in-grafana-v8">
+<h3>Alerts in Grafana v8<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#alerts-in-grafana-v8" title="Link to this heading"></a></h3>
+<p>The following will configure a couple of alerts inside a group.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">"""Example grafana 8.x+ Alert"""</span>
+
+
+<span class="kn">from</span> <span class="nn">grafanalib.core</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AlertGroup</span><span class="p">,</span>
+    <span class="n">AlertRulev8</span><span class="p">,</span>
+    <span class="n">Target</span><span class="p">,</span>
+    <span class="n">AlertCondition</span><span class="p">,</span>
+    <span class="n">LowerThan</span><span class="p">,</span>
+    <span class="n">OP_OR</span><span class="p">,</span>
+    <span class="n">OP_AND</span><span class="p">,</span>
+    <span class="n">RTYPE_LAST</span>
+<span class="p">)</span>
+
+<span class="c1"># An AlertGroup is one group contained in an alert folder.</span>
+<span class="n">alertgroup</span> <span class="o">=</span> <span class="n">AlertGroup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"Production Alerts"</span><span class="p">,</span>
+    <span class="c1"># Each AlertRule forms a separate alert.</span>
+    <span class="n">rules</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">AlertRulev8</span><span class="p">(</span>
+            <span class="c1"># Each rule must have a unique title</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"Database is unresponsive"</span><span class="p">,</span>
+            <span class="c1"># Several triggers can be used per alert, a trigger is a combination of a Target and its AlertCondition in a tuple.</span>
+            <span class="n">triggers</span><span class="o">=</span><span class="p">[</span>
+                <span class="p">(</span>
+                    <span class="c1"># A target refId must be assigned, and exist only once per AlertRule.</span>
+                    <span class="n">Target</span><span class="p">(</span>
+                        <span class="n">expr</span><span class="o">=</span><span class="s1">'sum(kube_pod_container_status_ready{exported_pod=~"database-/*"})'</span><span class="p">,</span>
+                        <span class="c1"># Set datasource to name of your datasource</span>
+                        <span class="n">datasource</span><span class="o">=</span><span class="s2">"VictoriaMetrics"</span><span class="p">,</span>
+                        <span class="n">refId</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">AlertCondition</span><span class="p">(</span>
+                        <span class="n">evaluator</span><span class="o">=</span><span class="n">LowerThan</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                        <span class="c1"># To have the alert fire when either of the triggers are met in the rule, set both AlertCondition operators to OP_OR.</span>
+                        <span class="n">operator</span><span class="o">=</span><span class="n">OP_OR</span><span class="p">,</span>
+                        <span class="n">reducerType</span><span class="o">=</span><span class="n">RTYPE_LAST</span>
+                    <span class="p">)</span>
+                <span class="p">),</span>
+                <span class="p">(</span>
+                    <span class="n">Target</span><span class="p">(</span>
+                        <span class="n">expr</span><span class="o">=</span><span class="s1">'sum by (app) (count_over_time({app="database"}[5m]))'</span><span class="p">,</span>
+                        <span class="c1"># Set datasource to name of your datasource</span>
+                        <span class="n">datasource</span><span class="o">=</span><span class="s2">"Loki"</span><span class="p">,</span>
+                        <span class="n">refId</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">AlertCondition</span><span class="p">(</span>
+                        <span class="n">evaluator</span><span class="o">=</span><span class="n">LowerThan</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span>
+                        <span class="n">operator</span><span class="o">=</span><span class="n">OP_OR</span><span class="p">,</span>
+                        <span class="n">reducerType</span><span class="o">=</span><span class="n">RTYPE_LAST</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">],</span>
+            <span class="n">annotations</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"summary"</span><span class="p">:</span> <span class="s2">"The database is down"</span><span class="p">,</span>
+                <span class="s2">"runbook_url"</span><span class="p">:</span> <span class="s2">"runbook-for-this-scenario.com/foo"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">labels</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"environment"</span><span class="p">:</span> <span class="s2">"prod"</span><span class="p">,</span>
+                <span class="s2">"slack"</span><span class="p">:</span> <span class="s2">"prod-alerts"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">evaluateInterval</span><span class="o">=</span><span class="s2">"1m"</span><span class="p">,</span>
+            <span class="n">evaluateFor</span><span class="o">=</span><span class="s2">"3m"</span><span class="p">,</span>
+        <span class="p">),</span>
+
+        <span class="c1"># Second alert</span>
+        <span class="n">AlertRulev8</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"Service API blackbox failure"</span><span class="p">,</span>
+            <span class="n">triggers</span><span class="o">=</span><span class="p">[</span>
+                <span class="p">(</span>
+                    <span class="n">Target</span><span class="p">(</span>
+                        <span class="n">expr</span><span class="o">=</span><span class="s1">'probe_success{instance="my-service.foo.com/ready"}'</span><span class="p">,</span>
+                        <span class="c1"># Set datasource to name of your datasource</span>
+                        <span class="n">datasource</span><span class="o">=</span><span class="s2">"VictoriaMetrics"</span><span class="p">,</span>
+                        <span class="n">refId</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span>
+                    <span class="p">),</span>
+                    <span class="n">AlertCondition</span><span class="p">(</span>
+                        <span class="n">evaluator</span><span class="o">=</span><span class="n">LowerThan</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+                        <span class="n">operator</span><span class="o">=</span><span class="n">OP_AND</span><span class="p">,</span>
+                        <span class="n">reducerType</span><span class="o">=</span><span class="n">RTYPE_LAST</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">],</span>
+            <span class="n">annotations</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"summary"</span><span class="p">:</span> <span class="s2">"Service API has been unavailable for 3 minutes"</span><span class="p">,</span>
+                <span class="s2">"runbook_url"</span><span class="p">:</span> <span class="s2">"runbook-for-this-scenario.com/foo"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">labels</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"environment"</span><span class="p">:</span> <span class="s2">"prod"</span><span class="p">,</span>
+                <span class="s2">"slack"</span><span class="p">:</span> <span class="s2">"prod-alerts"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">evaluateInterval</span><span class="o">=</span><span class="s2">"1m"</span><span class="p">,</span>
+            <span class="n">evaluateFor</span><span class="o">=</span><span class="s2">"3m"</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Although this example has a fair amount of boilerplate, when creating large numbers
+of similar alerts it can save lots of time to programmatically fill these fields.</p>
+<p>Each <code class="docutils literal notranslate"><span class="pre">AlertGroup</span></code> represents a folder within Grafana’s alerts tab. This consists
+of one or more <code class="docutils literal notranslate"><span class="pre">AlertRulev8</span></code>, which contains one or more triggers. Triggers define
+what will cause the alert to fire.</p>
+<p>A trigger is made up of a <code class="docutils literal notranslate"><span class="pre">Target</span></code> (a Grafana query on a datasource) and an
+<code class="docutils literal notranslate"><span class="pre">AlertCondition</span></code> (a condition this query must satisfy in order to alert).</p>
+<p>Finally, there are additional settings like:</p>
+<ul class="simple">
+<li><p>How the alert will behave when data sources have problems (<code class="docutils literal notranslate"><span class="pre">noDataAlertState</span></code> and <code class="docutils literal notranslate"><span class="pre">errorAlertState</span></code>)</p></li>
+<li><p>How frequently the trigger is evaluated (<code class="docutils literal notranslate"><span class="pre">evaluateInterval</span></code>)</p></li>
+<li><p>How long the AlertCondition needs to be met before the alert fires (<code class="docutils literal notranslate"><span class="pre">evaluateFor</span></code>)</p></li>
+<li><p>Annotations and labels, which help provide contextual information and direct where
+your alerts will go</p></li>
+</ul>
+</section>
+<section id="alerts-in-grafana-v9">
+<h3>Alerts in Grafana v9<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#alerts-in-grafana-v9" title="Link to this heading"></a></h3>
+<p>The following will configure a couple of alerts inside a group for Grafana v9.x+.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">"""Example grafana 9.x+ Alert"""</span>
+
+
+<span class="kn">from</span> <span class="nn">grafanalib.core</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AlertGroup</span><span class="p">,</span>
+    <span class="n">AlertRulev9</span><span class="p">,</span>
+    <span class="n">Target</span><span class="p">,</span>
+    <span class="n">AlertCondition</span><span class="p">,</span>
+    <span class="n">AlertExpression</span><span class="p">,</span>
+    <span class="n">GreaterThan</span><span class="p">,</span>
+    <span class="n">OP_AND</span><span class="p">,</span>
+    <span class="n">RTYPE_LAST</span><span class="p">,</span>
+    <span class="n">EXP_TYPE_CLASSIC</span><span class="p">,</span>
+    <span class="n">EXP_TYPE_REDUCE</span><span class="p">,</span>
+    <span class="n">EXP_TYPE_MATH</span>
+<span class="p">)</span>
+
+<span class="c1"># An AlertGroup is one group contained in an alert folder.</span>
+<span class="n">alertgroup</span> <span class="o">=</span> <span class="n">AlertGroup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"Production Alerts"</span><span class="p">,</span>
+    <span class="c1"># Each AlertRule forms a separate alert.</span>
+    <span class="n">rules</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1"># Alert rule using classic condition &gt; 3</span>
+        <span class="n">AlertRulev9</span><span class="p">(</span>
+            <span class="c1"># Each rule must have a unique title</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"Alert for something 1"</span><span class="p">,</span>
+            <span class="n">uid</span><span class="o">=</span><span class="s1">'alert1'</span><span class="p">,</span>
+            <span class="c1"># Several triggers can be used per alert</span>
+            <span class="n">condition</span><span class="o">=</span><span class="s1">'B'</span><span class="p">,</span>
+            <span class="n">triggers</span><span class="o">=</span><span class="p">[</span>
+                <span class="c1"># A target refId must be assigned, and exist only once per AlertRule.</span>
+                <span class="n">Target</span><span class="p">(</span>
+                    <span class="n">expr</span><span class="o">=</span><span class="s2">"from(bucket: </span><span class="se">\"</span><span class="s2">sensors</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; range(start: v.timeRangeStart, stop: v.timeRangeStop)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">_measurement</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">remote_cpu</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">_field</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">usage_system</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">cpu</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">cpu-total</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)</span><span class="se">\n</span><span class="s2">  |&gt; yield(name: </span><span class="se">\"</span><span class="s2">mean</span><span class="se">\"</span><span class="s2">)"</span><span class="p">,</span>
+                    <span class="c1"># Set datasource to name of your datasource</span>
+                    <span class="n">datasource</span><span class="o">=</span><span class="s2">"influxdb"</span><span class="p">,</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">AlertExpression</span><span class="p">(</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span>
+                    <span class="n">expressionType</span><span class="o">=</span><span class="n">EXP_TYPE_CLASSIC</span><span class="p">,</span>
+                    <span class="n">expression</span><span class="o">=</span><span class="s1">'A'</span><span class="p">,</span>
+                    <span class="n">conditions</span><span class="o">=</span><span class="p">[</span>
+                        <span class="n">AlertCondition</span><span class="p">(</span>
+                            <span class="n">evaluator</span><span class="o">=</span><span class="n">GreaterThan</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+                            <span class="n">operator</span><span class="o">=</span><span class="n">OP_AND</span><span class="p">,</span>
+                            <span class="n">reducerType</span><span class="o">=</span><span class="n">RTYPE_LAST</span>
+                        <span class="p">)</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">],</span>
+            <span class="n">annotations</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"summary"</span><span class="p">:</span> <span class="s2">"The database is down"</span><span class="p">,</span>
+                <span class="s2">"runbook_url"</span><span class="p">:</span> <span class="s2">"runbook-for-this-scenario.com/foo"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">labels</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"environment"</span><span class="p">:</span> <span class="s2">"prod"</span><span class="p">,</span>
+                <span class="s2">"slack"</span><span class="p">:</span> <span class="s2">"prod-alerts"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">evaluateFor</span><span class="o">=</span><span class="s2">"3m"</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="c1"># Alert rule using reduce and Math</span>
+        <span class="n">AlertRulev9</span><span class="p">(</span>
+            <span class="c1"># Each rule must have a unique title</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"Alert for something 2"</span><span class="p">,</span>
+            <span class="n">uid</span><span class="o">=</span><span class="s1">'alert2'</span><span class="p">,</span>
+            <span class="n">condition</span><span class="o">=</span><span class="s1">'C'</span><span class="p">,</span>
+            <span class="c1"># Several triggers can be used per alert</span>
+            <span class="n">triggers</span><span class="o">=</span><span class="p">[</span>
+                <span class="c1"># A target refId must be assigned, and exist only once per AlertRule.</span>
+                <span class="n">Target</span><span class="p">(</span>
+                    <span class="n">expr</span><span class="o">=</span><span class="s2">"from(bucket: </span><span class="se">\"</span><span class="s2">sensors</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; range(start: v.timeRangeStart, stop: v.timeRangeStop)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">_measurement</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">remote_cpu</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">_field</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">usage_system</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">cpu</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">cpu-total</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)</span><span class="se">\n</span><span class="s2">  |&gt; yield(name: </span><span class="se">\"</span><span class="s2">mean</span><span class="se">\"</span><span class="s2">)"</span><span class="p">,</span>
+                    <span class="c1"># Set datasource to name of your datasource</span>
+                    <span class="n">datasource</span><span class="o">=</span><span class="s2">"influxdb"</span><span class="p">,</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">AlertExpression</span><span class="p">(</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span>
+                    <span class="n">expressionType</span><span class="o">=</span><span class="n">EXP_TYPE_REDUCE</span><span class="p">,</span>
+                    <span class="n">expression</span><span class="o">=</span><span class="s1">'A'</span><span class="p">,</span>
+                    <span class="n">reduceFunction</span><span class="o">=</span><span class="s1">'mean'</span><span class="p">,</span>
+                    <span class="n">reduceMode</span><span class="o">=</span><span class="s1">'dropNN'</span>
+                <span class="p">),</span>
+                <span class="n">AlertExpression</span><span class="p">(</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s2">"C"</span><span class="p">,</span>
+                    <span class="n">expressionType</span><span class="o">=</span><span class="n">EXP_TYPE_MATH</span><span class="p">,</span>
+                    <span class="n">expression</span><span class="o">=</span><span class="s1">'$B &lt; 3'</span>
+                <span class="p">)</span>
+            <span class="p">],</span>
+            <span class="n">annotations</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"summary"</span><span class="p">:</span> <span class="s2">"The database is down"</span><span class="p">,</span>
+                <span class="s2">"runbook_url"</span><span class="p">:</span> <span class="s2">"runbook-for-this-scenario.com/foo"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">labels</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"environment"</span><span class="p">:</span> <span class="s2">"prod"</span><span class="p">,</span>
+                <span class="s2">"slack"</span><span class="p">:</span> <span class="s2">"prod-alerts"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">evaluateFor</span><span class="o">=</span><span class="s2">"3m"</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Although this example has a fair amount of boilerplate, when creating large numbers
+of similar alerts it can save lots of time to programmatically fill these fields.</p>
+<p>Each <code class="docutils literal notranslate"><span class="pre">AlertGroup</span></code> represents a folder within Grafana’s alerts tab. This consists
+of one or more <code class="docutils literal notranslate"><span class="pre">AlertRulev9</span></code>, which contains a list of triggers, that define what
+will cause the alert to fire.</p>
+<p>A trigger can either be a <code class="docutils literal notranslate"><span class="pre">Target</span></code> (a Grafana query on a datasource) or an
+<code class="docutils literal notranslate"><span class="pre">AlertExpression</span></code> (a expression performed on one of the triggers).</p>
+<p>An <code class="docutils literal notranslate"><span class="pre">AlertExpression</span></code> can be one of 4 types</p>
+<ul class="simple">
+<li><p>Classic - Contains and list of <code class="docutils literal notranslate"><span class="pre">AlertCondition</span></code>’s that are evaluated</p></li>
+<li><p>Reduce - Reduce the queried data</p></li>
+<li><p>Resample - Resample the queried data</p></li>
+<li><p>Math - Expression with the condition for the rule</p></li>
+</ul>
+<p>Finally, there are additional settings like:</p>
+<ul class="simple">
+<li><p>How the alert will behave when data sources have problems (<code class="docutils literal notranslate"><span class="pre">noDataAlertState</span></code> and <code class="docutils literal notranslate"><span class="pre">errorAlertState</span></code>)</p></li>
+<li><p>How frequently the each rule in the Alert Group is evaluated (<code class="docutils literal notranslate"><span class="pre">evaluateInterval</span></code>)</p></li>
+<li><p>How long the AlertCondition needs to be met before the alert fires (<code class="docutils literal notranslate"><span class="pre">evaluateFor</span></code>)</p></li>
+<li><p>Annotations and labels, which help provide contextual information and direct where
+your alerts will go</p></li>
+</ul>
+</section>
+</section>
+<section id="generating-alerts">
+<h2>Generating Alerts<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#generating-alerts" title="Link to this heading"></a></h2>
+<p>If you save either of the above examples for Grafana v8 or v9 as <code class="docutils literal notranslate"><span class="pre">example.alertgroup.py</span></code>
+(the suffix must be <code class="docutils literal notranslate"><span class="pre">.alertgroup.py</span></code>), you can then generate the JSON alert with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>generate-alertgroup<span class="w"> </span>-o<span class="w"> </span>alerts.json<span class="w"> </span>example.alertgroup.py
+</pre></div>
+</div>
+</section>
+<section id="uploading-alerts-from-code">
+<h2>Uploading alerts from code<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#uploading-alerts-from-code" title="Link to this heading"></a></h2>
+<p>As Grafana does not currently have a user interface for importing alertgroup JSON,
+you must either upload the alerts via Grafana’s REST API or use file based provisioning.</p>
+<section id="uploading-alerts-from-code-using-rest-api">
+<h3>Uploading alerts from code using REST API<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#uploading-alerts-from-code-using-rest-api" title="Link to this heading"></a></h3>
+<p>The following example provides minimal code boilerplate for it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">grafanalib.core</span> <span class="kn">import</span> <span class="n">AlertGroup</span>
+<span class="kn">from</span> <span class="nn">grafanalib._gen</span> <span class="kn">import</span> <span class="n">DashboardEncoder</span><span class="p">,</span> <span class="n">loader</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getenv</span>
+
+
+<span class="k">def</span> <span class="nf">get_alert_json</span><span class="p">(</span><span class="n">alert</span><span class="p">:</span> <span class="n">AlertGroup</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''</span>
+<span class="sd">    get_alert_json generates JSON from grafanalib AlertGroup object</span>
+
+<span class="sd">    :param alert - AlertGroup created via grafanalib</span>
+<span class="sd">    '''</span>
+
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">alert</span><span class="o">.</span><span class="n">to_json_data</span><span class="p">(),</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">DashboardEncoder</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">upload_to_grafana</span><span class="p">(</span><span class="n">alertjson</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">api_key</span><span class="p">,</span> <span class="n">session_cookie</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">'''</span>
+<span class="sd">    upload_to_grafana tries to upload the AlertGroup to grafana and prints response</span>
+<span class="sd">    WARNING: This will first delete all alerts in the AlertGroup before replacing them with the provided AlertGroup.</span>
+
+<span class="sd">    :param alertjson - AlertGroup json generated by grafanalib</span>
+<span class="sd">    :param folder - Folder to upload the AlertGroup into</span>
+<span class="sd">    :param server - grafana server name</span>
+<span class="sd">    :param api_key - grafana api key with read and write privileges</span>
+<span class="sd">    '''</span>
+    <span class="n">groupName</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">alertjson</span><span class="p">)[</span><span class="s1">'name'</span><span class="p">]</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">api_key</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"using bearer auth"</span><span class="p">)</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">'Authorization'</span><span class="p">]</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Bearer </span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="k">if</span> <span class="n">session_cookie</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"using session cookie"</span><span class="p">)</span>
+        <span class="n">headers</span><span class="p">[</span><span class="s1">'Cookie'</span><span class="p">]</span> <span class="o">=</span> <span class="n">session_cookie</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"deleting AlertGroup </span><span class="si">{</span><span class="n">groupName</span><span class="si">}</span><span class="s2"> in folder </span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">"https://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s2">/api/ruler/grafana/api/v1/rules/</span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">groupName</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="n">verify</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">headers</span><span class="p">[</span><span class="s1">'Content-Type'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'application/json'</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"ensuring folder </span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2"> exists"</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">"https://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s2">/api/folders"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="n">folder</span><span class="p">},</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"uploading AlertGroup </span><span class="si">{</span><span class="n">groupName</span><span class="si">}</span><span class="s2"> to folder </span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">"https://</span><span class="si">{</span><span class="n">server</span><span class="si">}</span><span class="s2">/api/ruler/grafana/api/v1/rules/</span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">alertjson</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="n">verify</span><span class="p">)</span>
+    <span class="c1"># TODO: add error handling</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+
+<span class="n">grafana_api_key</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s2">"GRAFANA_API_KEY"</span><span class="p">)</span>
+<span class="n">grafana_server</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s2">"GRAFANA_SERVER"</span><span class="p">)</span>
+<span class="n">grafana_cookie</span> <span class="o">=</span> <span class="n">getenv</span><span class="p">(</span><span class="s2">"GRAFANA_COOKIE"</span><span class="p">)</span>
+
+<span class="c1"># Generate an alert from the example</span>
+<span class="n">my_alergroup_json</span> <span class="o">=</span> <span class="n">get_alert_json</span><span class="p">(</span><span class="n">loader</span><span class="p">(</span><span class="s2">"./grafanalib/tests/examples/example.alertgroup.py"</span><span class="p">))</span>
+<span class="n">upload_to_grafana</span><span class="p">(</span><span class="n">my_alergroup_json</span><span class="p">,</span> <span class="s2">"testfolder"</span><span class="p">,</span> <span class="n">grafana_server</span><span class="p">,</span> <span class="n">grafana_api_key</span><span class="p">,</span> <span class="n">grafana_cookie</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="uploading-alerts-from-code-using-file-based-provisioning">
+<h3>Uploading alerts from code using File Based Provisioning<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#uploading-alerts-from-code-using-file-based-provisioning" title="Link to this heading"></a></h3>
+<p>The alternative to using Grafana’s REST API is to use its file based provisioning for
+alerting.</p>
+<p>The following example uses the <code class="docutils literal notranslate"><span class="pre">AlertFileBasedProvisioning</span></code> class to provision a list
+of alert groups:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">"""Example grafana 9.x+ Alert"""</span>
+
+
+<span class="kn">from</span> <span class="nn">grafanalib.core</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AlertGroup</span><span class="p">,</span>
+    <span class="n">AlertRulev9</span><span class="p">,</span>
+    <span class="n">Target</span><span class="p">,</span>
+    <span class="n">AlertCondition</span><span class="p">,</span>
+    <span class="n">AlertExpression</span><span class="p">,</span>
+    <span class="n">AlertFileBasedProvisioning</span><span class="p">,</span>
+    <span class="n">GreaterThan</span><span class="p">,</span>
+    <span class="n">OP_AND</span><span class="p">,</span>
+    <span class="n">RTYPE_LAST</span><span class="p">,</span>
+    <span class="n">EXP_TYPE_CLASSIC</span><span class="p">,</span>
+    <span class="n">EXP_TYPE_REDUCE</span><span class="p">,</span>
+    <span class="n">EXP_TYPE_MATH</span>
+<span class="p">)</span>
+
+<span class="c1"># An AlertGroup is one group contained in an alert folder.</span>
+<span class="n">alertgroup</span> <span class="o">=</span> <span class="n">AlertGroup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">"Production Alerts"</span><span class="p">,</span>
+    <span class="c1"># Each AlertRule forms a separate alert.</span>
+    <span class="n">rules</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1"># Alert rule using classic condition &gt; 3</span>
+        <span class="n">AlertRulev9</span><span class="p">(</span>
+            <span class="c1"># Each rule must have a unique title</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"Alert for something 3"</span><span class="p">,</span>
+            <span class="n">uid</span><span class="o">=</span><span class="s1">'alert3'</span><span class="p">,</span>
+            <span class="c1"># Several triggers can be used per alert</span>
+            <span class="n">condition</span><span class="o">=</span><span class="s1">'B'</span><span class="p">,</span>
+            <span class="n">triggers</span><span class="o">=</span><span class="p">[</span>
+                <span class="c1"># A target refId must be assigned, and exist only once per AlertRule.</span>
+                <span class="n">Target</span><span class="p">(</span>
+                    <span class="n">expr</span><span class="o">=</span><span class="s2">"from(bucket: </span><span class="se">\"</span><span class="s2">sensors</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; range(start: v.timeRangeStart, stop: v.timeRangeStop)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">_measurement</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">remote_cpu</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">_field</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">usage_system</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">cpu</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">cpu-total</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)</span><span class="se">\n</span><span class="s2">  |&gt; yield(name: </span><span class="se">\"</span><span class="s2">mean</span><span class="se">\"</span><span class="s2">)"</span><span class="p">,</span>
+                    <span class="c1"># Set datasource to name of your datasource</span>
+                    <span class="n">datasource</span><span class="o">=</span><span class="s2">"influxdb"</span><span class="p">,</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">AlertExpression</span><span class="p">(</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span>
+                    <span class="n">expressionType</span><span class="o">=</span><span class="n">EXP_TYPE_CLASSIC</span><span class="p">,</span>
+                    <span class="n">expression</span><span class="o">=</span><span class="s1">'A'</span><span class="p">,</span>
+                    <span class="n">conditions</span><span class="o">=</span><span class="p">[</span>
+                        <span class="n">AlertCondition</span><span class="p">(</span>
+                            <span class="n">evaluator</span><span class="o">=</span><span class="n">GreaterThan</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+                            <span class="n">operator</span><span class="o">=</span><span class="n">OP_AND</span><span class="p">,</span>
+                            <span class="n">reducerType</span><span class="o">=</span><span class="n">RTYPE_LAST</span>
+                        <span class="p">)</span>
+                    <span class="p">]</span>
+                <span class="p">)</span>
+            <span class="p">],</span>
+            <span class="n">annotations</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"summary"</span><span class="p">:</span> <span class="s2">"The database is down"</span><span class="p">,</span>
+                <span class="s2">"runbook_url"</span><span class="p">:</span> <span class="s2">"runbook-for-this-scenario.com/foo"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">labels</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"environment"</span><span class="p">:</span> <span class="s2">"prod"</span><span class="p">,</span>
+                <span class="s2">"slack"</span><span class="p">:</span> <span class="s2">"prod-alerts"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">evaluateFor</span><span class="o">=</span><span class="s2">"3m"</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="c1"># Alert rule using reduce and Math</span>
+        <span class="n">AlertRulev9</span><span class="p">(</span>
+            <span class="c1"># Each rule must have a unique title</span>
+            <span class="n">title</span><span class="o">=</span><span class="s2">"Alert for something 4"</span><span class="p">,</span>
+            <span class="n">uid</span><span class="o">=</span><span class="s1">'alert4'</span><span class="p">,</span>
+            <span class="n">condition</span><span class="o">=</span><span class="s1">'C'</span><span class="p">,</span>
+            <span class="c1"># Several triggers can be used per alert</span>
+            <span class="n">triggers</span><span class="o">=</span><span class="p">[</span>
+                <span class="c1"># A target refId must be assigned, and exist only once per AlertRule.</span>
+                <span class="n">Target</span><span class="p">(</span>
+                    <span class="n">expr</span><span class="o">=</span><span class="s2">"from(bucket: </span><span class="se">\"</span><span class="s2">sensors</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; range(start: v.timeRangeStart, stop: v.timeRangeStop)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">_measurement</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">remote_cpu</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">_field</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">usage_system</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; filter(fn: (r) =&gt; r[</span><span class="se">\"</span><span class="s2">cpu</span><span class="se">\"</span><span class="s2">] == </span><span class="se">\"</span><span class="s2">cpu-total</span><span class="se">\"</span><span class="s2">)</span><span class="se">\n</span><span class="s2">  |&gt; aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)</span><span class="se">\n</span><span class="s2">  |&gt; yield(name: </span><span class="se">\"</span><span class="s2">mean</span><span class="se">\"</span><span class="s2">)"</span><span class="p">,</span>
+                    <span class="c1"># Set datasource to name of your datasource</span>
+                    <span class="n">datasource</span><span class="o">=</span><span class="s2">"influxdb"</span><span class="p">,</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s2">"A"</span><span class="p">,</span>
+                <span class="p">),</span>
+                <span class="n">AlertExpression</span><span class="p">(</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span>
+                    <span class="n">expressionType</span><span class="o">=</span><span class="n">EXP_TYPE_REDUCE</span><span class="p">,</span>
+                    <span class="n">expression</span><span class="o">=</span><span class="s1">'A'</span><span class="p">,</span>
+                    <span class="n">reduceFunction</span><span class="o">=</span><span class="s1">'mean'</span><span class="p">,</span>
+                    <span class="n">reduceMode</span><span class="o">=</span><span class="s1">'dropNN'</span>
+                <span class="p">),</span>
+                <span class="n">AlertExpression</span><span class="p">(</span>
+                    <span class="n">refId</span><span class="o">=</span><span class="s2">"C"</span><span class="p">,</span>
+                    <span class="n">expressionType</span><span class="o">=</span><span class="n">EXP_TYPE_MATH</span><span class="p">,</span>
+                    <span class="n">expression</span><span class="o">=</span><span class="s1">'$B &lt; 3'</span>
+                <span class="p">)</span>
+            <span class="p">],</span>
+            <span class="n">annotations</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"summary"</span><span class="p">:</span> <span class="s2">"The database is down"</span><span class="p">,</span>
+                <span class="s2">"runbook_url"</span><span class="p">:</span> <span class="s2">"runbook-for-this-scenario.com/foo"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">labels</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">"environment"</span><span class="p">:</span> <span class="s2">"prod"</span><span class="p">,</span>
+                <span class="s2">"slack"</span><span class="p">:</span> <span class="s2">"prod-alerts"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">evaluateFor</span><span class="o">=</span><span class="s2">"3m"</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">alertfilebasedprovisioning</span> <span class="o">=</span> <span class="n">AlertFileBasedProvisioning</span><span class="p">([</span><span class="n">alertgroup</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>Save the above example as <code class="docutils literal notranslate"><span class="pre">example.alertfilebasedprovisioning.py</span></code>
+(the suffix must be <code class="docutils literal notranslate"><span class="pre">.alertfilebasedprovisioning.py</span></code>), you can then generate the JSON alert with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>generate-alertgroup<span class="w"> </span>-o<span class="w"> </span>alerts.json<span class="w"> </span>example.alertfilebasedprovisioning.py
+</pre></div>
+</div>
+<p>Then place the file in the <code class="docutils literal notranslate"><span class="pre">provisioning/alerting</span></code> directory and start Grafana
+Tools like Anisble can assist with the deployment of the alert file.</p>
+</section>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#installation" title="Link to this heading"></a></h2>
+<p>grafanalib is just a Python package, so:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>grafanalib
+</pre></div>
+</div>
+</section>
+<section id="support">
+<h2>Support<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#support" title="Link to this heading"></a></h2>
+<p>This library is in its very early stages. We’ll probably make changes that
+break backwards compatibility, although we’ll try hard not to.</p>
+<p>grafanalib works with Python 3.7, 3.8, 3.9, 3.10 and 3.11.</p>
+</section>
+<section id="developing">
+<h2>Developing<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#developing" title="Link to this heading"></a></h2>
+<p>If you’re working on the project, and need to build from source, it’s done as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>virtualenv<span class="w"> </span>.env
+<span class="gp">$ </span>.<span class="w"> </span>./.env/bin/activate
+<span class="gp">$ </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="configuring-grafana-datasources">
+<h2>Configuring Grafana Datasources<a class="headerlink" href="https://grafanalib.readthedocs.io/en/stable/getting-started.html#configuring-grafana-datasources" title="Link to this heading"></a></h2>
+<p>This repo used to contain a program <code class="docutils literal notranslate"><span class="pre">gfdatasource</span></code> for configuring
+Grafana data sources, but it has been retired since Grafana now has a
+built-in way to do it.  See <a class="reference external" href="https://grafana.com/docs/administration/provisioning/#datasources">https://grafana.com/docs/administration/provisioning/#datasources</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="https://grafanalib.readthedocs.io/en/stable/index.html" class="btn btn-neutral float-left" title="Welcome to grafanalib’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="https://grafanalib.readthedocs.io/en/stable/api/grafanalib.html" class="btn btn-neutral float-right" title="grafanalib package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr>
+
+  <div role="contentinfo">
+    <p>© Copyright 2021, grafanalib community.
+      <span class="commit">Revision <code>b312693f</code>.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org/">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="Versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: stable
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions"><!-- Inserted RTD Footer -->
+
+<div class="injected">
+
+  
+
+      
+      
+      
+      <dl>
+        <dt>Versions</dt>
+        
+        <dd class="rtd-current-item">
+          <a href="https://grafanalib.readthedocs.io/en/stable/getting-started.html">stable</a>
+        </dd>
+        
+        <dd>
+          <a href="https://grafanalib.readthedocs.io/en/v0.7.1/getting-started.html">v0.7.1</a>
+        </dd>
+        
+        <dd>
+          <a href="https://grafanalib.readthedocs.io/en/v0.7.0/getting-started.html">v0.7.0</a>
+        </dd>
+        
+        <dd>
+          <a href="https://grafanalib.readthedocs.io/en/v0.6.3/getting-started.html">v0.6.3</a>
+        </dd>
+        
+        <dd>
+          <a href="https://grafanalib.readthedocs.io/en/main/getting-started.html">main</a>
+        </dd>
+        
+      </dl>
+      
+      
+
+      
+      
+      <dl>
+        <dt>Downloads</dt>
+        
+        <dd><a href="https://grafanalib.readthedocs.io/_/downloads/en/stable/pdf/">PDF</a></dd>
+        
+        <dd><a href="https://grafanalib.readthedocs.io/_/downloads/en/stable/htmlzip/">HTML</a></dd>
+        
+        <dd><a href="https://grafanalib.readthedocs.io/_/downloads/en/stable/epub/">Epub</a></dd>
+        
+      </dl>
+      
+      
+
+      
+      <dl>
+        
+        <!-- These are kept as relative links for internal installs that are http -->
+        <dt>On Read the Docs</dt>
+        <dd>
+          <a href="https://readthedocs.org/projects/grafanalib/">Project Home</a>
+        </dd>
+        <dd>
+          <a href="https://readthedocs.org/projects/grafanalib/builds/">Builds</a>
+        </dd>
+        <dd>
+          <a href="https://readthedocs.org/projects/grafanalib/downloads/">Downloads</a>
+        </dd>
+      </dl>
+      
+
+      
+
+      
+      <dl>
+        <dt>On GitHub</dt>
+        <dd>
+          <a href="https://github.com/weaveworks/grafanalib/blob/b312693fc2d5548e57c23a8bd9503ed8d15603fc/docs/getting-started.rst">View</a>
+        </dd>
+        
+      </dl>
+      
+      
+
+      
+      <dl>
+        <dt>Search</dt>
+        <dd>
+          <div style="padding: 6px;">
+            
+            <form id="flyout-search-form" class="wy-form" target="_blank" action="https://readthedocs.org/projects/grafanalib/search/" method="get">
+              <input type="text" name="q" aria-label="Search docs" placeholder="Search docs">
+              </form>
+          </div>
+        </dd>
+      </dl>
+      
+
+      <hr>
+
+      
+        <small>
+          <span>Hosted by <a href="https://readthedocs.org/">Read the Docs</a></span>
+          <span> · </span>
+          <a href="https://docs.readthedocs.io/page/privacy-policy.html">Privacy Policy</a>
+        </small>
+      
+
+      
+
+</div>
+</div>
+  </div>
+<script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+
+</body></html>
