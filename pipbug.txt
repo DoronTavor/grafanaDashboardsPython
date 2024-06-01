@@ -1,0 +1,63 @@
+To resolve the issue with installing grafanalib and ensuring that pip is using the correct version of Python, follow these steps:
+
+### Step 1: Ensure Python 3.9 is properly installed
+First, verify that Python 3.9 is installed correctly. You can check this by running:
+
+```sh
+python3.9 --version
+```
+
+If it returns the correct version of Python 3.9, you can proceed.
+
+### Step 2: Upgrade pip for Python 3.9
+You need to ensure that pip is associated with Python 3.9. You can do this by running:
+
+```sh
+python3.9 -m ensurepip --upgrade
+python3.9 -m pip install --upgrade pip
+```
+
+### Step 3: Install grafanalib using pip for Python 3.9
+Since your work computer does not have internet access, you need to manually download the grafanalib package and its dependencies. You can download the packages from another computer with internet access and transfer them to your work computer.
+
+1. **Download the packages:**
+   On a computer with internet access, download the required packages. You can use the `pip download` command to download the packages and their dependencies:
+
+   ```sh
+   mkdir grafanalib_packages
+   cd grafanalib_packages
+   pip download grafanalib
+   ```
+
+   This will download `grafanalib` and its dependencies into the `grafanalib_packages` directory.
+
+2. **Transfer the packages to your work computer:**
+   Copy the `grafanalib_packages` directory to your work computer using a USB drive or any other method available to you.
+
+3. **Install the packages on your work computer:**
+   Navigate to the directory where you copied the packages and use `pip` to install them:
+
+   ```sh
+   cd path/to/grafanalib_packages
+   python3.9 -m pip install --no-index --find-links=. grafanalib
+   ```
+
+   The `--no-index` flag tells pip not to try to download anything from the internet, and `--find-links=.` specifies the current directory as the location of the package files.
+
+### Step 4: Verify the installation
+Finally, verify that grafanalib is installed correctly by trying to import it in a Python script or the Python interactive shell:
+
+```sh
+python3.9
+```
+
+Then, within the Python shell:
+
+```python
+import grafanalib
+print(grafanalib.__version__)
+```
+
+If no errors occur and the version is printed, the installation was successful.
+
+By following these steps, you should be able to install grafanalib on your work computer without internet access and ensure that pip is correctly associated with Python 3.9.

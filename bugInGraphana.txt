@@ -1,0 +1,80 @@
+To troubleshoot and fix the issue with your Grafana dashboard not displaying CPU usage data, you can follow these steps:
+
+1. **Verify Data Source Configuration:**
+   - Ensure that the data source (e.g., Prometheus) is correctly configured and connected in Grafana.
+   - Check that the data source is properly selected for your CPU usage graph.
+
+2. **Check Query Configuration:**
+   - Review the query used to fetch CPU usage data. For Prometheus, a typical query might look like:
+     ```prometheus
+     rate(node_cpu_seconds_total{mode="idle"}[5m])
+     ```
+   - Make sure the query is correctly targeting the metrics you want to visualize.
+
+3. **Adjust Time Range:**
+   - Ensure the time range for the dashboard or panel is set to a period where data is available. You can adjust this in the top-right corner of Grafana.
+   - Sometimes, data may not appear if the selected time range is too narrow or if there's no data for that period.
+
+4. **Panel Settings:**
+   - Double-check the panel settings, including axes, legend, and display options. Ensure these settings match those in other working panels.
+
+5. **Inspect JSON Configuration:**
+   - If you added the graph via JSON, review the JSON configuration for any errors or discrepancies. Compare it with the JSON of a working panel.
+   - Look for fields like `targets`, `datasource`, `interval`, and `query`.
+
+6. **Data Availability:**
+   - Confirm that the data for CPU usage is indeed available in your data source. You can directly query the data source (e.g., Prometheus) to verify this.
+
+7. **Logs and Debugging:**
+   - Check Grafana logs for any errors or warnings that might indicate what is going wrong.
+   - Look at the browser's developer console for any network issues or errors when Grafana tries to fetch the data.
+
+### Example Steps to Verify Configuration
+
+1. **Verify Data Source in Panel:**
+   - Open the panel in edit mode.
+   - Go to the "Query" tab.
+   - Ensure the correct data source is selected from the drop-down menu.
+
+2. **Adjust Query:**
+   - In the "Query" tab, input or adjust your query. For example, for CPU usage in Kubernetes, you might use:
+     ```prometheus
+     sum(rate(container_cpu_usage_seconds_total[5m])) by (container)
+     ```
+   - Use the "Run Query" button to test if data is returned.
+
+3. **Check Time Range:**
+   - Adjust the time range using the time picker in the top-right corner. Set it to a longer range to ensure data coverage.
+
+4. **Inspect JSON:**
+   - Go to the dashboard settings (click on the gear icon at the top of the dashboard).
+   - Select "JSON Model".
+   - Review the JSON configuration, especially within the `panels` section, for the panel showing no data.
+
+### Example JSON Snippet for a Panel
+```json
+{
+  "datasource": "Prometheus",
+  "targets": [
+    {
+      "expr": "sum(rate(container_cpu_usage_seconds_total[5m])) by (container)",
+      "interval": "",
+      "legendFormat": "{{container}}",
+      "refId": "A"
+    }
+  ],
+  "time_from": null,
+  "time_shift": null,
+  ...
+}
+```
+
+### Final Steps
+
+1. **Save and Apply Changes:**
+   - Save the dashboard and ensure changes are applied.
+
+2. **Refresh Dashboard:**
+   - Refresh the Grafana dashboard to see if the panel updates with data.
+
+By following these steps, you should be able to identify and resolve the issue with your Grafana dashboard not displaying CPU usage data. If you still encounter issues, providing specific error messages or additional details about your configuration would be helpful for further troubleshooting.
